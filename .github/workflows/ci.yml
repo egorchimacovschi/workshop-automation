@@ -6,7 +6,18 @@ on: [push, pull_request]
 # Step 2: Which runner do we use and what steps do we execute?
 jobs:
   build:
-    runs-on: ubuntu-latest
+    # Run the same job on 3 operating systems in parallel
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    # Use bash on every OS (Git Bash on Windows) so the same commands work everywhere
+    defaults:
+      run:
+        shell: bash
 
     steps:
       # Clones the repository code into the virtual machine
@@ -15,7 +26,12 @@ jobs:
 
       # Installs the GCC compiler on the cloud Linux runner
       - name: Install GCC
+        if: runner.os == 'Linux'
         run: sudo apt-get update && sudo apt-get install -y gcc
+
+      # Shows which compiler each OS is using (helps when reading logs)
+      - name: Show compiler version
+        run: gcc --version
 
       # Compiles the program exactly as you would locally
       - name: Compile C program
