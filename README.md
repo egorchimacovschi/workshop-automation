@@ -1,4 +1,4 @@
-# Automation Workshop. CI/CD
+Automation Workshop. CI/CD
 
 ## 1. Local automation
 
