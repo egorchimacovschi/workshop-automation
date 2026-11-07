@@ -1,0 +1,21 @@
+name: Code Verification (CI)
+
+on: [push, pull_request]
+
+jobs:
+  build:
+  euns-on: ubuntu:latest
+
+  steps:
+    - name: Checkout repository Code
+      uses: actions/checkout@v4
+
+    - name: Install gcc
+      run: sudo apt-get update && sudo apt-get install -y gcc
+
+    - name: Compile C program
+      run: gcc c-bye/bye.c -o c-bye/bye
+
+    - name: Run application
+      run: ./c-bye/bye
+
