@@ -13,7 +13,7 @@ int main() {
     if (strcmp(input, password) == 0) {
         printf("Access granted!\nBye bye!\n");
     } else {
-        printf("Access denied!\nNo goodbye for you!\n")
+        printf("Access denied!\nNo goodbye for you!\n");
     }
 
     return 0;
